@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | MatchIQ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div class="auth-page">
+
+    <!-- Animated background -->
+    <div class="auth-orb auth-orb-one"></div>
+    <div class="auth-orb auth-orb-two"></div>
+    <div class="auth-grid"></div>
+
+
+    <!-- Navigation -->
+
+    <header class="auth-navbar">
+
+        <a href="{{ url_for('home') }}" class="logo">
+
+            <div class="logo-icon">
+                ✦
+            </div>
+
+            <span>
+                Match<span class="logo-highlight">IQ</span>
+            </span>
+
+        </a>
+
+        <a href="{{ url_for('home') }}"
+           class="back-home">
+            ← Back to Home
+        </a>
+
+    </header>
+
+
+    <!-- Main -->
+
+    <main class="auth-container">
+
+        <div class="auth-card signup-card">
+
+            <!-- Left information -->
+
+            <div class="auth-info">
+
+                <div class="auth-ai-icon">
+                    ✦
+                </div>
+
+                <div class="ai-badge">
+                    BUILD YOUR CAREER WITH AI
+                </div>
+
+                <h1>
+                    Start your
+                    <span class="gradient-text">
+                        journey.
+                    </span>
+                </h1>
+
+                <p>
+                    Create your MatchIQ account and use
+                    AI-powered insights to find better
+                    career opportunities.
+                </p>
+
+
+                <div class="auth-features">
+
+                    <div class="auth-feature">
+
+                        <span>✓</span>
+
+                        <div>
+
+                            <strong>
+                                Upload Your Resume
+                            </strong>
+
+                            <small>
+                                Let AI understand your skills.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="auth-feature">
+
+                        <span>✓</span>
+
+                        <div>
+
+                            <strong>
+                                Discover Job Matches
+                            </strong>
+
+                            <small>
+                                Find roles matching your profile.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="auth-feature">
+
+                        <span>✓</span>
+
+                        <div>
+
+                            <strong>
+                                Improve Your Profile
+                            </strong>
+
+                            <small>
+                                Get intelligent career suggestions.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Signup form -->
+
+            <div class="auth-form-area">
+
+                <div class="form-heading">
+
+                    <h2>
+                        Create your account
+                    </h2>
+
+                    <p>
+                        Join MatchIQ and start your AI-powered
+                        career journey.
+                    </p>
+
+                </div>
+
+
+                {% if error %}
+
+                <div class="auth-error">
+                    {{ error }}
+                </div>
+
+                {% endif %}
+
+
+                <form method="POST"
+                      action="{{ url_for('signup') }}"
+                      class="auth-form">
+
+
+                    <!-- Name -->
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ♙
+                            </span>
+
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Email -->
+
+                    <div class="form-group">
+
+                        <label for="signup-email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                @
+                            </span>
+
+                            <input
+                                type="email"
+                                id="signup-email"
+                                name="email"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="form-group">
+
+                        <label for="signup-password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                •
+                            </span>
+
+                            <input
+                                type="password"
+                                id="signup-password"
+                                name="password"
+                                placeholder="Create a password"
+                                autocomplete="new-password"
+                                minlength="6"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="signupPasswordToggle">
+                                Show
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password strength -->
+
+                    <div class="password-strength">
+
+                        <div class="strength-bars">
+
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+
+                        <small id="strengthText">
+                            Use at least 6 characters.
+                        </small>
+
+                    </div>
+
+
+                    <!-- Terms -->
+
+                    <label class="terms-check">
+
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            required
+                        >
+
+                        <span>
+                            I agree to the MatchIQ
+                            <a href="#">Terms</a>
+                            and
+                            <a href="#">Privacy Policy</a>.
+                        </span>
+
+                    </label>
+
+
+                    <!-- Submit -->
+
+                    <button
+                        type="submit"
+                        class="auth-submit">
+
+                        <span>
+                            Create Account
+                        </span>
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <div class="auth-divider">
+                    <span>ALREADY A MEMBER?</span>
+                </div>
+
+
+                <div class="auth-signup">
+
+                    <span>
+                        Already have an account?
+                    </span>
+
+                    <a href="{{ url_for('login') }}">
+                        Sign in
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="auth-security">
+
+            <span>🔒</span>
+
+            Your information is protected with secure
+            authentication.
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   PASSWORD SHOW / HIDE
+========================================================= */
+
+const password =
+    document.getElementById("signup-password");
+
+const toggle =
+    document.getElementById(
+        "signupPasswordToggle"
+    );
+
+if (password && toggle) {
+
+    toggle.addEventListener(
+        "click",
+        function () {
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                toggle.textContent = "Hide";
+
+            } else {
+
+                password.type = "password";
+
+                toggle.textContent = "Show";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PASSWORD STRENGTH
+========================================================= */
+
+const strengthBars =
+    document.querySelectorAll(
+        ".strength-bars span"
+    );
+
+const strengthText =
+    document.getElementById(
+        "strengthText"
+    );
+
+
+if (password) {
+
+    password.addEventListener(
+        "input",
+        function () {
+
+            const value =
+                password.value;
+
+            let score = 0;
+
+
+            if (value.length >= 6) {
+                score++;
+            }
+
+            if (value.length >= 10) {
+                score++;
+            }
+
+            if (/[A-Z]/.test(value)) {
+                score++;
+            }
+
+            if (
+                /[0-9]/.test(value) ||
+                /[^A-Za-z0-9]/.test(value)
+            ) {
+                score++;
+            }
+
+
+            strengthBars.forEach(
+                (bar, index) => {
+
+                    bar.classList.remove(
+                        "active"
+                    );
+
+                    if (index < score) {
+
+                        bar.classList.add(
+                            "active"
+                        );
+
+                    }
+
+                }
+            );
+
+
+            if (!value) {
+
+                strengthText.textContent =
+                    "Use at least 6 characters.";
+
+            } else if (score <= 1) {
+
+                strengthText.textContent =
+                    "Weak password.";
+
+            } else if (score === 2) {
+
+                strengthText.textContent =
+                    "Fair password.";
+
+            } else if (score === 3) {
+
+                strengthText.textContent =
+                    "Good password.";
+
+            } else {
+
+                strengthText.textContent =
+                    "Strong password.";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CARD ENTRANCE ANIMATION
+========================================================= */
+
+const card =
+    document.querySelector(".auth-card");
+
+
+if (card) {
+
+    card.style.opacity = "0";
+
+    card.style.transform =
+        "translateY(25px)";
+
+
+    requestAnimationFrame(() => {
+
+        card.style.transition =
+            "opacity .7s ease, transform .7s ease";
+
+        card.style.opacity = "1";
+
+        card.style.transform =
+            "translateY(0)";
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>

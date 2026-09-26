@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Job Matches | MatchIQ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+</head>
+
+
+<body class="jobs-page">
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="dashboard-sidebar">
+
+    <a href="{{ url_for('home') }}"
+       class="logo dashboard-logo">
+
+        <div class="logo-icon">
+            ✦
+        </div>
+
+        <span>
+            Match<span class="logo-highlight">IQ</span>
+        </span>
+
+    </a>
+
+
+    <nav class="dashboard-nav">
+
+        <a href="{{ url_for('profile') }}"
+           class="dashboard-nav-link">
+
+            <span>⌂</span>
+            Dashboard
+
+        </a>
+
+
+        <a href="{{ url_for('jobs') }}"
+           class="dashboard-nav-link active">
+
+            <span>◈</span>
+            Job Matches
+
+        </a>
+
+
+        <a href="{{ url_for('matcher_page') }}"
+           class="dashboard-nav-link">
+
+            <span>✦</span>
+            AI Matcher
+
+        </a>
+
+
+        <a href="{{ url_for('employer_dashboard') }}"
+           class="dashboard-nav-link">
+
+            <span>▣</span>
+            Employer
+
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+       <a href="{{ url_for('settings') }}"
+   class="dashboard-nav-link">
+
+    <span>⚙</span>
+    Settings
+
+</a>
+
+
+        <a href="{{ url_for('logout') }}"
+           class="dashboard-nav-link logout-link">
+
+            <span>↪</span>
+            Logout
+
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="dashboard-main jobs-main">
+
+
+    <!-- TOP BAR -->
+
+    <header class="dashboard-topbar">
+
+        <div>
+
+            <span class="dashboard-overline">
+                AI-POWERED OPPORTUNITY DISCOVERY
+            </span>
+
+            <h1>
+                Find your
+                <span class="gradient-text">
+                    perfect match.
+                </span>
+            </h1>
+
+        </div>
+
+
+        <div class="dashboard-user">
+
+            <div class="notification-button">
+                ♢
+                <span></span>
+            </div>
+
+
+            <div class="user-avatar">
+                {{ session.get('name', 'U')[0]|upper }}
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================================
+         AI SEARCH HERO
+    ================================================== -->
+
+    <section class="jobs-search-hero">
+
+        <div class="jobs-search-content">
+
+            <div class="ai-badge">
+                ✦ MATCHIQ AI SEARCH
+            </div>
+
+
+            <h2>
+                Opportunities selected
+                <span class="gradient-text">
+                    for you.
+                </span>
+            </h2>
+
+
+            <p>
+                Our AI analyzes your skills, experience and
+                preferences to surface jobs with the strongest
+                potential match.
+            </p>
+
+        </div>
+
+
+        <div class="jobs-ai-orbit">
+
+            <div class="jobs-orbit orbit-a"></div>
+
+            <div class="jobs-orbit orbit-b"></div>
+
+            <div class="jobs-ai-core">
+                ✦
+            </div>
+
+            <div class="orbit-dot dot-a"></div>
+
+            <div class="orbit-dot dot-b"></div>
+
+            <div class="orbit-dot dot-c"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         SEARCH
+    ================================================== -->
+
+    <section class="job-search-area">
+
+        <div class="job-search-box">
+
+            <span>
+                ⌕
+            </span>
+
+            <input
+                type="text"
+                id="jobSearch"
+                placeholder="Search jobs, skills or companies..."
+            >
+
+        </div>
+
+
+        <button
+            class="job-filter-button"
+            id="filterButton"
+            type="button">
+
+            ⚙ Filters
+
+        </button>
+
+    </section>
+
+
+    <!-- =================================================
+         FILTERS
+    ================================================== -->
+
+    <section
+        class="job-filters"
+        id="jobFilters">
+
+        <div class="filter-group">
+
+            <label>
+                Location
+            </label>
+
+            <select id="locationFilter">
+
+                <option value="all">
+                    All locations
+                </option>
+
+                <option value="remote">
+                    Remote
+                </option>
+
+                <option value="noida">
+                    Noida
+                </option>
+
+                <option value="bangalore">
+                    Bangalore
+                </option>
+
+                <option value="hyderabad">
+                    Hyderabad
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="filter-group">
+
+            <label>
+                Job Type
+            </label>
+
+            <select id="typeFilter">
+
+                <option value="all">
+                    All types
+                </option>
+
+                <option value="full-time">
+                    Full Time
+                </option>
+
+                <option value="internship">
+                    Internship
+                </option>
+
+                <option value="part-time">
+                    Part Time
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="filter-group">
+
+            <label>
+                Minimum Match
+            </label>
+
+            <select id="matchFilter">
+
+                <option value="0">
+                    Any match
+                </option>
+
+                <option value="80">
+                    80%+
+                </option>
+
+                <option value="90">
+                    90%+
+                </option>
+
+                <option value="95">
+                    95%+
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button
+            id="clearFilters"
+            class="clear-filter"
+            type="button">
+
+            Clear filters
+
+        </button>
+
+    </section>
+
+
+    <!-- =================================================
+         RESULTS HEADER
+    ================================================== -->
+
+    <section class="jobs-results-header">
+
+        <div>
+
+            <span class="panel-label">
+                AI RECOMMENDATIONS
+            </span>
+
+            <h3>
+                Best matches for you
+            </h3>
+
+        </div>
+
+
+        <div
+            class="results-count"
+            id="resultsCount">
+
+            6 opportunities
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         JOB GRID
+    ================================================== -->
+
+    <section
+        class="jobs-grid"
+        id="jobsGrid">
+
+
+        <!-- JOB 1 -->
+
+        <article
+            class="job-card"
+            data-title="software developer"
+            data-company="tech solutions"
+            data-location="noida"
+            data-type="full-time"
+            data-match="96"
+            data-salary="₹6–10 LPA"
+            data-description="Build modern software applications and collaborate with a talented engineering team."
+            data-skills="Python, Java, SQL">
+
+            <div class="job-card-top">
+
+                <div class="job-company-logo">
+                    T
+                </div>
+
+                <button
+                    class="save-job"
+                    type="button"
+                    aria-label="Save job">
+
+                    ♡
+
+                </button>
+
+            </div>
+
+
+            <div class="job-match-badge">
+
+                <span>✦</span>
+                96% Match
+
+            </div>
+
+
+            <h3>
+                Software Developer
+            </h3>
+
+
+            <p class="job-company">
+                Tech Solutions
+            </p>
+
+
+            <div class="job-meta">
+
+                <span>
+                    ◉ Noida
+                </span>
+
+                <span>
+                    ◈ Full Time
+                </span>
+
+            </div>
+
+
+            <div class="job-skills">
+
+                <span>Python</span>
+                <span>Java</span>
+                <span>SQL</span>
+
+            </div>
+
+
+            <div class="job-card-bottom">
+
+                <strong>
+                    ₹6–10 LPA
+                </strong>
+
+                <button
+                    class="view-job"
+                    type="button">
+
+                    View Job →
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- JOB 2 -->
+
+        <article
+            class="job-card"
+            data-title="python developer"
+            data-company="innovate labs"
+            data-location="bangalore"
+            data-type="full-time"
+            data-match="94"
+            data-salary="₹7–12 LPA"
+            data-description="Develop scalable Python applications, APIs and backend services."
+            data-skills="Python, Flask, API">
+
+            <div class="job-card-top">
+
+                <div class="job-company-logo">
+                    I
+                </div>
+
+                <button
+                    class="save-job"
+                    type="button"
+                    aria-label="Save job">
+
+                    ♡
+
+                </button>
+
+            </div>
+
+
+            <div class="job-match-badge">
+
+                <span>✦</span>
+                94% Match
+
+            </div>
+
+
+            <h3>
+                Python Developer
+            </h3>
+
+
+            <p class="job-company">
+                Innovate Labs
+            </p>
+
+
+            <div class="job-meta">
+
+                <span>
+                    ◉ Bangalore
+                </span>
+
+                <span>
+                    ◈ Full Time
+                </span>
+
+            </div>
+
+
+            <div class="job-skills">
+
+                <span>Python</span>
+                <span>Flask</span>
+                <span>API</span>
+
+            </div>
+
+
+            <div class="job-card-bottom">
+
+                <strong>
+                    ₹7–12 LPA
+                </strong>
+
+                <button
+                    class="view-job"
+                    type="button">
+
+                    View Job →
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- JOB 3 -->
+
+        <article
+            class="job-card"
+            data-title="data analyst"
+            data-company="data vision"
+            data-location="remote"
+            data-type="full-time"
+            data-match="91"
+            data-salary="₹5–9 LPA"
+            data-description="Analyze business data, build dashboards and provide insights using SQL and Python."
+            data-skills="SQL, Python, Power BI">
+
+            <div class="job-card-top">
+
+                <div class="job-company-logo">
+                    D
+                </div>
+
+                <button
+                    class="save-job"
+                    type="button"
+                    aria-label="Save job">
+
+                    ♡
+
+                </button>
+
+            </div>
+
+
+            <div class="job-match-badge">
+
+                <span>✦</span>
+                91% Match
+
+            </div>
+
+
+            <h3>
+                Data Analyst
+            </h3>
+
+
+            <p class="job-company">
+                Data Vision
+            </p>
+
+
+            <div class="job-meta">
+
+                <span>
+                    ◉ Remote
+                </span>
+
+                <span>
+                    ◈ Full Time
+                </span>
+
+            </div>
+
+
+            <div class="job-skills">
+
+                <span>SQL</span>
+                <span>Python</span>
+                <span>Power BI</span>
+
+            </div>
+
+
+            <div class="job-card-bottom">
+
+                <strong>
+                    ₹5–9 LPA
+                </strong>
+
+                <button
+                    class="view-job"
+                    type="button">
+
+                    View Job →
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- JOB 4 -->
+
+        <article
+            class="job-card"
+            data-title="machine learning engineer"
+            data-company="ai systems"
+            data-location="hyderabad"
+            data-type="full-time"
+            data-match="89"
+            data-salary="₹8–14 LPA"
+            data-description="Design and develop machine learning models and AI-powered solutions."
+            data-skills="Python, ML, TensorFlow">
+
+            <div class="job-card-top">
+
+                <div class="job-company-logo">
+                    A
+                </div>
+
+                <button
+                    class="save-job"
+                    type="button"
+                    aria-label="Save job">
+
+                    ♡
+
+                </button>
+
+            </div>
+
+
+            <div class="job-match-badge">
+
+                <span>✦</span>
+                89% Match
+
+            </div>
+
+
+            <h3>
+                Machine Learning Engineer
+            </h3>
+
+
+            <p class="job-company">
+                AI Systems
+            </p>
+
+
+            <div class="job-meta">
+
+                <span>
+                    ◉ Hyderabad
+                </span>
+
+                <span>
+                    ◈ Full Time
+                </span>
+
+            </div>
+
+
+            <div class="job-skills">
+
+                <span>Python</span>
+                <span>ML</span>
+                <span>TensorFlow</span>
+
+            </div>
+
+
+            <div class="job-card-bottom">
+
+                <strong>
+                    ₹8–14 LPA
+                </strong>
+
+                <button
+                    class="view-job"
+                    type="button">
+
+                    View Job →
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- JOB 5 -->
+
+        <article
+            class="job-card"
+            data-title="backend developer"
+            data-company="cloudworks"
+            data-location="remote"
+            data-type="full-time"
+            data-match="87"
+            data-salary="₹6–11 LPA"
+            data-description="Create secure backend services and REST APIs for cloud-based applications."
+            data-skills="Flask, SQL, AWS">
+
+            <div class="job-card-top">
+
+                <div class="job-company-logo">
+                    C
+                </div>
+
+                <button
+                    class="save-job"
+                    type="button"
+                    aria-label="Save job">
+
+                    ♡
+
+                </button>
+
+            </div>
+
+
+            <div class="job-match-badge">
+
+                <span>✦</span>
+                87% Match
+
+            </div>
+
+
+            <h3>
+                Backend Developer
+            </h3>
+
+
+            <p class="job-company">
+                CloudWorks
+            </p>
+
+
+            <div class="job-meta">
+
+                <span>
+                    ◉ Remote
+                </span>
+
+                <span>
+                    ◈ Full Time
+                </span>
+
+            </div>
+
+
+            <div class="job-skills">
+
+                <span>Flask</span>
+                <span>SQL</span>
+                <span>AWS</span>
+
+            </div>
+
+
+            <div class="job-card-bottom">
+
+                <strong>
+                    ₹6–11 LPA
+                </strong>
+
+                <button
+                    class="view-job"
+                    type="button">
+
+                    View Job →
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- JOB 6 -->
+
+        <article
+            class="job-card"
+            data-title="software engineering intern"
+            data-company="future tech"
+            data-location="noida"
+            data-type="internship"
+            data-match="84"
+            data-salary="₹25–40K / month"
+            data-description="Work with experienced engineers to build software products and learn modern development practices."
+            data-skills="Java, Python, Git">
+
+            <div class="job-card-top">
+
+                <div class="job-company-logo">
+                    F
+                </div>
+
+                <button
+                    class="save-job"
+                    type="button"
+                    aria-label="Save job">
+
+                    ♡
+
+                </button>
+
+            </div>
+
+
+            <div class="job-match-badge">
+
+                <span>✦</span>
+                84% Match
+
+            </div>
+
+
+            <h3>
+                Software Engineering Intern
+            </h3>
+
+
+            <p class="job-company">
+                Future Tech
+            </p>
+
+
+            <div class="job-meta">
+
+                <span>
+                    ◉ Noida
+                </span>
+
+                <span>
+                    ◈ Internship
+                </span>
+
+            </div>
+
+
+            <div class="job-skills">
+
+                <span>Java</span>
+                <span>Python</span>
+                <span>Git</span>
+
+            </div>
+
+
+            <div class="job-card-bottom">
+
+                <strong>
+                    ₹25–40K / month
+                </strong>
+
+                <button
+                    class="view-job"
+                    type="button">
+
+                    View Job →
+
+                </button>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <!-- =================================================
+         NO RESULTS
+    ================================================== -->
+
+    <div
+        class="no-jobs"
+        id="noJobs">
+
+        <div>
+            ✦
+        </div>
+
+        <h3>
+            No matching jobs found
+        </h3>
+
+        <p>
+            Try changing your search or filters.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         AI TIP
+    ================================================== -->
+
+    <section class="jobs-ai-tip">
+
+        <div class="jobs-tip-icon">
+            ✦
+        </div>
+
+
+        <div>
+
+            <span>
+                MATCHIQ AI TIP
+            </span>
+
+            <strong>
+                Increase your match score
+            </strong>
+
+            <p>
+                Add REST API, Docker and cloud deployment
+                skills to your profile. These skills could
+                unlock more high-match opportunities.
+            </p>
+
+        </div>
+
+
+        <a href="{{ url_for('matcher_page') }}">
+            Analyze Resume →
+        </a>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================================
+     JOB DETAILS MODAL
+===================================================== -->
+
+<div
+    class="job-modal-overlay"
+    id="jobModal">
+
+    <div
+        class="job-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle">
+
+
+        <button
+            class="job-modal-close"
+            id="closeJobModal"
+            type="button"
+            aria-label="Close">
+
+            ×
+
+        </button>
+
+
+        <div
+            class="modal-company-logo"
+            id="modalLogo">
+
+            T
+
+        </div>
+
+
+        <div class="modal-match">
+
+            ✦
+
+            <span id="modalMatch">
+                96% Match
+            </span>
+
+        </div>
+
+
+        <h2 id="modalTitle">
+            Software Developer
+        </h2>
+
+
+        <p
+            class="modal-company"
+            id="modalCompany">
+
+            Tech Solutions
+
+        </p>
+
+
+        <div class="modal-meta">
+
+            <span id="modalLocation">
+                ◉ Noida
+            </span>
+
+            <span id="modalType">
+                ◈ Full Time
+            </span>
+
+            <span id="modalSalary">
+                ₹6–10 LPA
+            </span>
+
+        </div>
+
+
+        <div class="modal-divider"></div>
+
+
+        <h3>
+            About this role
+        </h3>
+
+
+        <p
+            class="modal-description"
+            id="modalDescription">
+
+            Build modern software applications and collaborate
+            with a talented engineering team.
+
+        </p>
+
+
+        <h3>
+            Required skills
+        </h3>
+
+
+        <div
+            class="modal-skills"
+            id="modalSkills">
+        </div>
+
+
+        <div class="modal-ai-analysis">
+
+            <div class="modal-ai-icon">
+                ✦
+            </div>
+
+
+            <div>
+
+                <strong>
+                    AI Match Analysis
+                </strong>
+
+                <p id="modalAiText">
+                    This opportunity matches your profile based
+                    on skills, experience and job requirements.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button
+                class="modal-apply-button"
+                id="applyButton"
+                type="button">
+
+                Apply Now →
+
+            </button>
+
+
+            <button
+                class="modal-save-button"
+                id="modalSaveButton"
+                type="button">
+
+                ♡ Save Job
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
+
+    const searchInput =
+        document.getElementById("jobSearch");
+
+    const locationFilter =
+        document.getElementById("locationFilter");
+
+    const typeFilter =
+        document.getElementById("typeFilter");
+
+    const matchFilter =
+        document.getElementById("matchFilter");
+
+    const cards =
+        document.querySelectorAll(".job-card");
+
+    const resultsCount =
+        document.getElementById("resultsCount");
+
+    const noJobs =
+        document.getElementById("noJobs");
+
+    const filterButton =
+        document.getElementById("filterButton");
+
+    const filterPanel =
+        document.getElementById("jobFilters");
+
+
+    /* =====================================================
+       FILTER JOBS
+    ===================================================== */
+
+    function filterJobs() {
+
+        const search =
+            searchInput.value
+                .toLowerCase()
+                .trim();
+
+        const location =
+            locationFilter.value;
+
+        const type =
+            typeFilter.value;
+
+        const minimumMatch =
+            Number(matchFilter.value);
+
+        let visible = 0;
+
+
+        cards.forEach(function (card) {
+
+            const title =
+                card.dataset.title || "";
+
+            const company =
+                card.dataset.company || "";
+
+            const description =
+                card.dataset.description || "";
+
+            const skills =
+                card.dataset.skills || "";
+
+            const cardLocation =
+                card.dataset.location || "";
+
+            const cardType =
+                card.dataset.type || "";
+
+            const cardMatch =
+                Number(card.dataset.match || 0);
+
+
+            const searchableText =
+                (
+                    title +
+                    " " +
+                    company +
+                    " " +
+                    description +
+                    " " +
+                    skills
+                ).toLowerCase();
+
+
+            const searchMatch =
+                !search ||
+                searchableText.includes(search);
+
+            const locationMatch =
+                location === "all" ||
+                cardLocation === location;
+
+            const typeMatch =
+                type === "all" ||
+                cardType === type;
+
+            const matchScore =
+                cardMatch >= minimumMatch;
+
+            const show =
+                searchMatch &&
+                locationMatch &&
+                typeMatch &&
+                matchScore;
+
+
+            if (show) {
+
+                card.style.display = "flex";
+
+                visible++;
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+
+        resultsCount.textContent =
+            visible +
+            (
+                visible === 1
+                    ? " opportunity"
+                    : " opportunities"
+            );
+
+
+        noJobs.style.display =
+            visible === 0
+                ? "block"
+                : "none";
+
+    }
+
+
+    /* =====================================================
+       SEARCH
+    ===================================================== */
+
+    searchInput.addEventListener(
+        "input",
+        filterJobs
+    );
+
+
+    /* =====================================================
+       FILTER EVENTS
+    ===================================================== */
+
+    locationFilter.addEventListener(
+        "change",
+        filterJobs
+    );
+
+    typeFilter.addEventListener(
+        "change",
+        filterJobs
+    );
+
+    matchFilter.addEventListener(
+        "change",
+        filterJobs
+    );
+
+
+    /* =====================================================
+       FILTER PANEL
+    ===================================================== */
+
+    filterButton.addEventListener(
+        "click",
+        function () {
+
+            filterPanel.classList.toggle(
+                "show"
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       CLEAR FILTERS
+    ===================================================== */
+
+    document
+        .getElementById("clearFilters")
+        .addEventListener(
+            "click",
+            function () {
+
+                searchInput.value = "";
+
+                locationFilter.value = "all";
+
+                typeFilter.value = "all";
+
+                matchFilter.value = "0";
+
+                filterJobs();
+
+            }
+        );
+
+
+    /* =====================================================
+       SAVE JOB CARDS
+    ===================================================== */
+
+    document
+        .querySelectorAll(".save-job")
+        .forEach(function (button) {
+
+            button.addEventListener(
+                "click",
+                function (event) {
+
+                    event.stopPropagation();
+
+
+                    const isSaved =
+                        button.classList.contains(
+                            "saved"
+                        );
+
+
+                    if (!isSaved) {
+
+                        button.textContent = "♥";
+
+                        button.classList.add(
+                            "saved"
+                        );
+
+                        button.setAttribute(
+                            "aria-label",
+                            "Unsave job"
+                        );
+
+                    } else {
+
+                        button.textContent = "♡";
+
+                        button.classList.remove(
+                            "saved"
+                        );
+
+                        button.setAttribute(
+                            "aria-label",
+                            "Save job"
+                        );
+
+                    }
+
+                }
+            );
+
+        });
+
+
+    /* =====================================================
+       MODAL ELEMENTS
+    ===================================================== */
+
+    const jobModal =
+        document.getElementById(
+            "jobModal"
+        );
+
+    const closeJobModal =
+        document.getElementById(
+            "closeJobModal"
+        );
+
+    const modalLogo =
+        document.getElementById(
+            "modalLogo"
+        );
+
+    const modalMatch =
+        document.getElementById(
+            "modalMatch"
+        );
+
+    const modalTitle =
+        document.getElementById(
+            "modalTitle"
+        );
+
+    const modalCompany =
+        document.getElementById(
+            "modalCompany"
+        );
+
+    const modalLocation =
+        document.getElementById(
+            "modalLocation"
+        );
+
+    const modalType =
+        document.getElementById(
+            "modalType"
+        );
+
+    const modalSalary =
+        document.getElementById(
+            "modalSalary"
+        );
+
+    const modalDescription =
+        document.getElementById(
+            "modalDescription"
+        );
+
+    const modalSkills =
+        document.getElementById(
+            "modalSkills"
+        );
+
+    const modalAiText =
+        document.getElementById(
+            "modalAiText"
+        );
+
+    const modalSaveButton =
+        document.getElementById(
+            "modalSaveButton"
+        );
+
+    const applyButton =
+        document.getElementById(
+            "applyButton"
+        );
+
+
+    let currentJob = null;
+
+
+    /* =====================================================
+       OPEN JOB MODAL
+    ===================================================== */
+
+    document
+        .querySelectorAll(".view-job")
+        .forEach(function (button) {
+
+            button.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    event.stopPropagation();
+
+
+                    const card =
+                        button.closest(
+                            ".job-card"
+                        );
+
+
+                    if (!card) {
+                        return;
+                    }
+
+
+                    currentJob = card;
+
+
+                    const title =
+                        card.querySelector("h3")
+                            .textContent
+                            .trim();
+
+                    const company =
+                        card.querySelector(".job-company")
+                            .textContent
+                            .trim();
+
+                    const logo =
+                        card.querySelector(".job-company-logo")
+                            .textContent
+                            .trim();
+
+                    const location =
+                        card.dataset.location || "";
+
+                    const type =
+                        card.dataset.type || "";
+
+                    const match =
+                        card.dataset.match || "0";
+
+                    const salary =
+                        card.dataset.salary || "";
+
+                    const description =
+                        card.dataset.description || "";
+
+                    const skills =
+                        (
+                            card.dataset.skills || ""
+                        ).split(",");
+
+
+                    modalLogo.textContent =
+                        logo;
+
+                    modalMatch.textContent =
+                        match + "% Match";
+
+                    modalTitle.textContent =
+                        title;
+
+                    modalCompany.textContent =
+                        company;
+
+                    modalLocation.textContent =
+                        "◉ " +
+                        formatLocation(location);
+
+                    modalType.textContent =
+                        "◈ " +
+                        formatType(type);
+
+                    modalSalary.textContent =
+                        salary;
+
+                    modalDescription.textContent =
+                        description;
+
+
+                    modalSkills.innerHTML = "";
+
+
+                    skills.forEach(function (skill) {
+
+                        if (!skill.trim()) {
+                            return;
+                        }
+
+                        const span =
+                            document.createElement("span");
+
+                        span.textContent =
+                            skill.trim();
+
+                        modalSkills.appendChild(
+                            span
+                        );
+
+                    });
+
+
+                    if (Number(match) >= 95) {
+
+                        modalAiText.textContent =
+                            "Excellent match. Your profile strongly aligns with this opportunity and its required skills.";
+
+                    } else if (Number(match) >= 90) {
+
+                        modalAiText.textContent =
+                            "Strong match. Your skills and experience are highly relevant to this opportunity.";
+
+                    } else if (Number(match) >= 80) {
+
+                        modalAiText.textContent =
+                            "Good match. You already have several relevant skills for this opportunity.";
+
+                    } else {
+
+                        modalAiText.textContent =
+                            "This opportunity has some relevant areas. Adding more matching skills could improve your score.";
+
+                    }
+
+
+                    updateModalSaveState();
+
+
+                    jobModal.classList.add(
+                        "active"
+                    );
+
+                    document.body.style.overflow =
+                        "hidden";
+
+                }
+            );
+
+        });
+
+
+    /* =====================================================
+       CLOSE MODAL
+    ===================================================== */
+
+    function closeModal() {
+
+        jobModal.classList.remove(
+            "active"
+        );
+
+        document.body.style.overflow =
+            "";
+
+        currentJob = null;
+
+    }
+
+
+    closeJobModal.addEventListener(
+        "click",
+        closeModal
+    );
+
+
+    jobModal.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target === jobModal
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape" &&
+                jobModal.classList.contains(
+                    "active"
+                )
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       MODAL SAVE
+    ===================================================== */
+
+    modalSaveButton.addEventListener(
+        "click",
+        function () {
+
+            if (!currentJob) {
+                return;
+            }
+
+
+            const cardSaveButton =
+                currentJob.querySelector(
+                    ".save-job"
+                );
+
+
+            const isSaved =
+                cardSaveButton.classList.contains(
+                    "saved"
+                );
+
+
+            if (!isSaved) {
+
+                cardSaveButton.textContent =
+                    "♥";
+
+                cardSaveButton.classList.add(
+                    "saved"
+                );
+
+                cardSaveButton.setAttribute(
+                    "aria-label",
+                    "Unsave job"
+                );
+
+            } else {
+
+                cardSaveButton.textContent =
+                    "♡";
+
+                cardSaveButton.classList.remove(
+                    "saved"
+                );
+
+                cardSaveButton.setAttribute(
+                    "aria-label",
+                    "Save job"
+                );
+
+            }
+
+
+            updateModalSaveState();
+
+        }
+    );
+
+
+    /* =====================================================
+       UPDATE MODAL SAVE STATE
+    ===================================================== */
+
+    function updateModalSaveState() {
+
+        if (!currentJob) {
+            return;
+        }
+
+
+        const cardSaveButton =
+            currentJob.querySelector(
+                ".save-job"
+            );
+
+
+        if (
+            cardSaveButton.classList.contains(
+                "saved"
+            )
+        ) {
+
+            modalSaveButton.textContent =
+                "♥ Saved";
+
+            modalSaveButton.classList.add(
+                "saved"
+            );
+
+        } else {
+
+            modalSaveButton.textContent =
+                "♡ Save Job";
+
+            modalSaveButton.classList.remove(
+                "saved"
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       APPLY NOW
+       IMPORTANT:
+       This goes to Flask /apply
+       NOT /matcher
+    ===================================================== */
+
+    applyButton.addEventListener(
+        "click",
+        function () {
+
+            if (!currentJob) {
+                return;
+            }
+
+
+            const title =
+                currentJob.querySelector("h3")
+                    .textContent
+                    .trim();
+
+            const company =
+                currentJob.querySelector(".job-company")
+                    .textContent
+                    .trim();
+
+            const location =
+                formatLocation(
+                    currentJob.dataset.location || ""
+                );
+
+            const type =
+                formatType(
+                    currentJob.dataset.type || ""
+                );
+
+            const salary =
+                currentJob.dataset.salary || "";
+
+            const description =
+                currentJob.dataset.description || "";
+
+            const skills =
+                currentJob.dataset.skills || "";
+
+
+            const applyUrl =
+                "{{ url_for('apply') }}" +
+                "?title=" +
+                encodeURIComponent(title) +
+                "&company=" +
+                encodeURIComponent(company) +
+                "&location=" +
+                encodeURIComponent(location) +
+                "&type=" +
+                encodeURIComponent(type) +
+                "&salary=" +
+                encodeURIComponent(salary) +
+                "&description=" +
+                encodeURIComponent(description) +
+                "&skills=" +
+                encodeURIComponent(skills);
+
+
+            window.location.href =
+                applyUrl;
+
+        }
+    );
+
+
+    /* =====================================================
+       LOCATION FORMAT
+    ===================================================== */
+
+    function formatLocation(value) {
+
+        const locations = {
+
+            noida: "Noida",
+
+            bangalore: "Bangalore",
+
+            hyderabad: "Hyderabad",
+
+            remote: "Remote"
+
+        };
+
+
+        return locations[value] || value;
+
+    }
+
+
+    /* =====================================================
+       JOB TYPE FORMAT
+    ===================================================== */
+
+    function formatType(value) {
+
+        if (value === "full-time") {
+            return "Full Time";
+        }
+
+        if (value === "part-time") {
+            return "Part Time";
+        }
+
+        if (value === "internship") {
+            return "Internship";
+        }
+
+        return value;
+
+    }
+
+
+    /* =====================================================
+       CARD ANIMATION
+    ===================================================== */
+
+    cards.forEach(
+        function (card, index) {
+
+            card.style.opacity = "0";
+
+            card.style.transform =
+                "translateY(20px)";
+
+
+            setTimeout(
+                function () {
+
+                    card.style.transition =
+                        "opacity .5s ease, transform .5s ease";
+
+                    card.style.opacity = "1";
+
+                    card.style.transform =
+                        "translateY(0)";
+
+                },
+                100 + index * 90
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       INITIAL FILTER
+    ===================================================== */
+
+    filterJobs();
+
+});
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employer Dashboard | MatchIQ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+
+<body class="dashboard-page employer-page">
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="dashboard-sidebar">
+
+    <a href="/" class="logo dashboard-logo">
+        <div class="logo-icon">✦</div>
+
+        <span>
+            Match<span class="logo-highlight">IQ</span>
+        </span>
+    </a>
+
+
+    <div class="sidebar-profile">
+
+        <div class="sidebar-avatar">
+            {{ session.get('name', 'E')[0]|upper }}
+        </div>
+
+        <div class="sidebar-profile-info">
+
+            <strong>
+                {{ session.get('name', 'Employer') }}
+            </strong>
+
+            <span>
+                Employer
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="dashboard-nav">
+
+        <a href="/employer/dashboard"
+           class="dashboard-nav-link active">
+            <span>▣</span>
+            Dashboard
+        </a>
+
+
+        <a href="/jobs"
+           class="dashboard-nav-link">
+            <span>◈</span>
+            Jobs
+        </a>
+
+
+        <a href="/matcher"
+           class="dashboard-nav-link">
+            <span>✦</span>
+            AI Matcher
+        </a>
+
+
+        <a href="/employer/dashboard"
+           class="dashboard-nav-link">
+            <span>▤</span>
+            My Jobs
+        </a>
+
+    </nav>
+
+
+   <div class="sidebar-bottom">
+
+    <a href="{{ url_for('settings') }}"
+       class="dashboard-nav-link">
+        <span>⚙</span>
+        Settings
+    </a>
+
+
+    <a href="/logout"
+       class="dashboard-nav-link logout-link">
+        <span>↪</span>
+        Logout
+    </a>
+
+</div>
+
+</aside>
+
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<main class="dashboard-main employer-dashboard-main">
+
+
+    <!-- =====================================================
+         TOP BAR
+    ====================================================== -->
+
+    <header class="dashboard-topbar">
+
+        <div>
+
+            <span class="dashboard-overline">
+                EMPLOYER WORKSPACE
+            </span>
+
+            <h1>
+                Employer
+                <span class="gradient-text">
+                    Dashboard
+                </span>
+            </h1>
+
+        </div>
+
+
+        <div class="dashboard-user">
+
+            <div class="notification-button">
+                ♢
+            </div>
+
+            <div class="user-avatar">
+                {{ session.get('name', 'E')[0]|upper }}
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="employer-hero">
+
+        <div class="employer-hero-content">
+
+            <div class="ai-badge">
+                ✦ MATCHIQ AI RECRUITING
+            </div>
+
+
+            <h2>
+                Find the right talent
+                <br>
+
+                <span class="gradient-text">
+                    faster with AI.
+                </span>
+            </h2>
+
+
+            <p>
+                Create job requirements, discover suitable
+                candidates and use AI-powered matching to make
+                better hiring decisions.
+            </p>
+
+
+            <div class="employer-actions">
+
+                <a href="#create-job"
+                   class="primary-btn">
+                    + Create Job
+                </a>
+
+
+                <a href="#posted-jobs"
+                   class="secondary-btn">
+                    View Candidates →
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- AI VISUAL -->
+
+        <div class="employer-ai-visual">
+
+            <div class="ring-one"></div>
+            <div class="ring-two"></div>
+            <div class="ring-three"></div>
+
+
+            <div class="employer-ai-center">
+
+                <span>✦</span>
+
+                <small>
+                    AI
+                </small>
+
+            </div>
+
+
+            <div class="candidate-node node-one">
+                CV
+            </div>
+
+            <div class="candidate-node node-two">
+                AI
+            </div>
+
+            <div class="candidate-node node-three">
+                ✓
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         STATISTICS
+    ====================================================== -->
+
+    <section class="employer-stats">
+
+
+        <!-- ACTIVE JOBS -->
+
+        <div class="employer-stat">
+
+            <div class="employer-stat-icon">
+                ▣
+            </div>
+
+            <div>
+
+                <strong>
+                    {{ jobs|length if jobs else 0 }}
+                </strong>
+
+                <span>
+                    Active Jobs
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- APPLICATIONS -->
+
+        <div class="employer-stat">
+
+            <div class="employer-stat-icon">
+                ◎
+            </div>
+
+            <div>
+
+                <strong>
+
+                    {% set total_applicants = namespace(value=0) %}
+
+                    {% for item in jobs or [] %}
+
+                        {% set total_applicants.value =
+                            total_applicants.value +
+                            (item['applicant_count'] or 0)
+                        %}
+
+                    {% endfor %}
+
+                    {{ total_applicants.value }}
+
+                </strong>
+
+                <span>
+                    Applications
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- AI MATCHING -->
+
+        <div class="employer-stat">
+
+            <div class="employer-stat-icon">
+                ✦
+            </div>
+
+            <div>
+
+                <strong>
+                    AI
+                </strong>
+
+                <span>
+                    Smart Matching
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SUPPORT -->
+
+        <div class="employer-stat">
+
+            <div class="employer-stat-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <strong>
+                    24/7
+                </strong>
+
+                <span>
+                    Hiring Intelligence
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CREATE JOB + AI MATCHING
+    ====================================================== -->
+
+    <section class="employer-dashboard-grid">
+
+
+        <!-- =================================================
+             CREATE JOB
+        ================================================== -->
+
+        <div class="employer-card"
+             id="create-job">
+
+
+            <div class="employer-card-heading">
+
+                <div>
+
+                    <span class="dashboard-card-label">
+                        RECRUITMENT
+                    </span>
+
+                    <h3>
+                        Create a job
+                    </h3>
+
+                </div>
+
+
+                <div class="card-heading-icon">
+                    +
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 IMPORTANT:
+                 DIRECT URL FIXES BUILDERROR
+            ================================================== -->
+
+            <form method="POST"
+                  action="/employer/post-job"
+                  class="employer-job-form">
+
+
+                <!-- JOB TITLE -->
+
+                <div class="employer-input-group">
+
+                    <label for="title">
+                        Job Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        placeholder="e.g. Python Developer"
+                        required>
+
+                </div>
+
+
+
+                <!-- COMPANY -->
+
+                <div class="employer-input-group">
+
+                    <label for="company">
+                        Company
+                    </label>
+
+                    <input
+                        type="text"
+                        id="company"
+                        name="company"
+                        placeholder="e.g. MatchIQ Technologies">
+
+                </div>
+
+
+
+                <!-- LOCATION -->
+
+                <div class="employer-input-group">
+
+                    <label for="location">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        name="location"
+                        placeholder="e.g. Noida / Remote">
+
+                </div>
+
+
+
+                <!-- SKILLS -->
+
+                <div class="employer-input-group">
+
+                    <label for="required_skills">
+                        Required Skills
+                    </label>
+
+                    <input
+                        type="text"
+                        id="required_skills"
+                        name="required_skills"
+                        placeholder="Python, SQL, Flask, AI">
+
+                </div>
+
+
+
+                <!-- EXPERIENCE -->
+
+                <div class="employer-input-group">
+
+                    <label for="experience">
+                        Experience
+                    </label>
+
+                    <input
+                        type="text"
+                        id="experience"
+                        name="experience"
+                        placeholder="e.g. 0-2 years">
+
+                </div>
+
+
+
+                <!-- EDUCATION -->
+
+                <div class="employer-input-group">
+
+                    <label for="education">
+                        Education
+                    </label>
+
+                    <input
+                        type="text"
+                        id="education"
+                        name="education"
+                        placeholder="e.g. B.Tech / BCA / MCA">
+
+                </div>
+
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="employer-input-group">
+
+                    <label for="description">
+                        Job Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="6"
+                        placeholder="Describe the role and requirements..."
+                        required></textarea>
+
+                </div>
+
+
+
+                <!-- CREATE -->
+
+                <button
+                    type="submit"
+                    class="employer-create-button">
+
+                    ✦ Create Job →
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+
+        <!-- =================================================
+             AI RECRUITING
+        ================================================== -->
+
+        <div class="employer-card ai-recruiting-card">
+
+
+            <div class="employer-card-heading">
+
+                <div>
+
+                    <span class="dashboard-card-label">
+                        INTELLIGENT HIRING
+                    </span>
+
+                    <h3>
+                        Match candidates intelligently
+                    </h3>
+
+                </div>
+
+
+                <span class="ai-status-dot">
+                    ● AI READY
+                </span>
+
+            </div>
+
+
+
+            <div class="ai-recruiting-content">
+
+                <div class="big-ai-icon">
+                    ✦
+                </div>
+
+
+                <h3>
+                    AI-powered candidate matching
+                </h3>
+
+
+                <p>
+                    MatchIQ analyzes candidate skills,
+                    experience and job requirements to identify
+                    stronger matches.
+                </p>
+
+
+                <a href="/matcher"
+                   class="hero-action">
+
+                    Open AI Matcher →
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         POSTED JOBS
+    ====================================================== -->
+
+    <section class="candidates-section"
+             id="posted-jobs">
+
+
+        <div class="employer-section-heading">
+
+            <div>
+
+                <span class="dashboard-card-label">
+                    YOUR JOBS
+                </span>
+
+                <h2>
+                    Posted Jobs
+                </h2>
+
+            </div>
+
+
+            <a href="#create-job"
+               class="small-primary-button">
+
+                + New Job
+
+            </a>
+
+        </div>
+
+
+
+        {% if jobs %}
+
+
+            <div class="created-jobs-list">
+
+
+                {% for job in jobs %}
+
+
+                    <article class="created-job-card">
+
+
+                        <div class="created-job-icon">
+                            ▣
+                        </div>
+
+
+                        <div class="created-job-info">
+
+                            <h3>
+                                {{ job['title'] }}
+                            </h3>
+
+
+                            <p>
+
+                                {% if job['company'] %}
+                                    {{ job['company'] }}
+                                {% endif %}
+
+                                {% if job['location'] %}
+                                    • {{ job['location'] }}
+                                {% endif %}
+
+                            </p>
+
+
+                            <span class="job-live">
+                                ● ACTIVE
+                            </span>
+
+                        </div>
+
+
+                        <div class="job-match-placeholder">
+
+                            <strong>
+                                {{ job['applicant_count'] or 0 }}
+                            </strong>
+
+                            <span>
+                                Applicants
+                            </span>
+
+                        </div>
+
+
+                        <div class="created-job-actions">
+
+                            <a
+                                href="/job/{{ job['id'] }}/applicants"
+                                class="view-candidates-button">
+
+                                View Applicants →
+
+                            </a>
+
+                        </div>
+
+
+                    </article>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+        {% else %}
+
+
+            <!-- EMPTY JOB STATE -->
+
+            <div class="empty-candidates">
+
+                <div class="empty-icon">
+                    ✦
+                </div>
+
+
+                <h3>
+                    No jobs posted yet
+                </h3>
+
+
+                <p>
+                    Create a job to start building your
+                    candidate pipeline.
+                </p>
+
+
+                <a href="#create-job"
+                   class="primary-btn">
+
+                    Create Your First Job
+
+                </a>
+
+            </div>
+
+
+        {% endif %}
+
+    </section>
+
+
+
+    <!-- =====================================================
+         APPLICANTS
+    ====================================================== -->
+
+    {% if job is defined and job %}
+
+
+    <section class="applicant-results">
+
+
+        <div class="employer-section-heading">
+
+            <div>
+
+                <span class="dashboard-card-label">
+                    AI CANDIDATE RANKING
+                </span>
+
+                <h2>
+                    Applicants for {{ job['title'] }}
+                </h2>
+
+            </div>
+
+
+            <a href="/employer/dashboard"
+               class="secondary-btn">
+
+                ← Back
+
+            </a>
+
+        </div>
+
+
+
+        {% if applicants %}
+
+
+            <div class="applicant-list">
+
+
+                {% for applicant in applicants %}
+
+
+                    <article class="applicant-card">
+
+
+                        <div class="applicant-avatar">
+
+                            {% if applicant['name'] %}
+                                {{ applicant['name'][0]|upper }}
+                            {% else %}
+                                U
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <div class="applicant-info">
+
+                            <h3>
+                                {{ applicant['name'] }}
+                            </h3>
+
+
+                            <p>
+                                {{ applicant['email'] }}
+                            </p>
+
+
+                            {% if applicant['filename'] %}
+
+                                <span class="resume-name">
+                                    📄 {{ applicant['filename'] }}
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <div class="applicant-match">
+
+                            <strong>
+                                {{ applicant['match_percentage']|round(0)|int }}%
+                            </strong>
+
+                            <span>
+                                Match
+                            </span>
+
+                        </div>
+
+
+
+                        <div class="applicant-level">
+
+                            {{ applicant['match_level']
+                            or 'Evaluated' }}
+
+                        </div>
+
+
+                    </article>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+        {% else %}
+
+
+            <div class="empty-candidates">
+
+                <div class="empty-icon">
+                    ◎
+                </div>
+
+
+                <h3>
+                    No candidates yet
+                </h3>
+
+
+                <p>
+                    Applications will appear here when
+                    employees apply for this job.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </section>
+
+
+    {% endif %}
+
+
+
+    <!-- =====================================================
+         SMART HIRING
+    ====================================================== -->
+
+    <section class="smart-hiring-section">
+
+
+        <div class="smart-hiring-heading">
+
+            <span class="dashboard-card-label">
+                SMART HIRING
+            </span>
+
+
+            <h2>
+                Your hiring workflow
+            </h2>
+
+
+            <p>
+                Simple, intelligent and data-driven.
+            </p>
+
+        </div>
+
+
+
+        <div class="smart-hiring-steps">
+
+
+            <!-- STEP 01 -->
+
+            <div class="smart-hiring-step">
+
+                <div class="smart-step-number">
+                    01
+                </div>
+
+
+                <div class="smart-step-content">
+
+                    <div class="smart-step-icon">
+                        +
+                    </div>
+
+
+                    <h3>
+                        Create Job
+                    </h3>
+
+
+                    <p>
+                        Add your role and required skills.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="smart-step-line"></div>
+
+
+
+            <!-- STEP 02 -->
+
+            <div class="smart-hiring-step">
+
+                <div class="smart-step-number">
+                    02
+                </div>
+
+
+                <div class="smart-step-content">
+
+                    <div class="smart-step-icon">
+                        ✦
+                    </div>
+
+
+                    <h3>
+                        AI Matching
+                    </h3>
+
+
+                    <p>
+                        Match applicants against your requirements.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="smart-step-line"></div>
+
+
+
+            <!-- STEP 03 -->
+
+            <div class="smart-hiring-step">
+
+                <div class="smart-step-number">
+                    03
+                </div>
+
+
+                <div class="smart-step-content">
+
+                    <div class="smart-step-icon">
+                        ✓
+                    </div>
+
+
+                    <h3>
+                        Hire Better
+                    </h3>
+
+
+                    <p>
+                        Shortlist the strongest candidates.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="dashboard-footer">
+
+    <span>
+        © 2026 MatchIQ
+    </span>
+
+    <span>
+        AI-powered recruitment intelligence
+    </span>
+
+</footer>
+
+
+</body>
+</html>

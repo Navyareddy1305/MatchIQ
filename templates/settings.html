@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings | MatchIQ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+</head>
+
+
+<body class="miq-settings-page">
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="miq-settings-sidebar">
+
+    <a href="{{ url_for('home') }}"
+       class="miq-settings-logo">
+
+        <div class="miq-settings-logo-icon">
+            ✦
+        </div>
+
+        <span>
+            Match<span>IQ</span>
+        </span>
+
+    </a>
+
+
+    <div class="miq-settings-profile">
+
+        <div class="miq-settings-avatar">
+            {{ session.get('name', 'U')[0]|upper }}
+        </div>
+
+        <div class="miq-settings-user-info">
+
+            <strong>
+                {{ session.get('name', 'User') }}
+            </strong>
+
+            <span>
+                Employee
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="miq-main-navigation">
+
+        <a href="{{ url_for('profile') }}">
+            <span>⌂</span>
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('jobs') }}">
+            <span>◈</span>
+            Job Discovery
+        </a>
+
+        <a href="{{ url_for('matcher_page') }}">
+            <span>✦</span>
+            AI Matcher
+        </a>
+
+    </nav>
+
+
+    <div class="miq-sidebar-divider"></div>
+
+
+    <div class="miq-settings-nav-title">
+        SETTINGS
+    </div>
+
+
+    <nav class="miq-settings-navigation">
+
+        <a href="#profile"
+           class="active"
+           data-section="profile">
+
+            <span>♙</span>
+            Profile
+
+        </a>
+
+
+        <a href="#security"
+           data-section="security">
+
+            <span>◇</span>
+            Security
+
+        </a>
+
+
+        <a href="#notifications"
+           data-section="notifications">
+
+            <span>♢</span>
+            Notifications
+
+        </a>
+
+
+        <a href="#appearance"
+           data-section="appearance">
+
+            <span>◐</span>
+            Appearance
+
+        </a>
+
+
+        <a href="#privacy"
+           data-section="privacy">
+
+            <span>◎</span>
+            Privacy
+
+        </a>
+
+    </nav>
+
+
+    <div class="miq-sidebar-bottom">
+
+        <a href="{{ url_for('logout') }}">
+            <span>↪</span>
+            Logout
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="miq-settings-main">
+
+
+    <!-- HEADER -->
+
+    <header class="miq-settings-header">
+
+        <div>
+
+            <div class="miq-breadcrumb">
+                Account / Settings
+            </div>
+
+            <h1>
+                Settings
+            </h1>
+
+            <p>
+                Manage your account, preferences and MatchIQ experience.
+            </p>
+
+        </div>
+
+
+        <div class="miq-ai-indicator">
+
+            <span></span>
+
+            MatchIQ AI Active
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================================
+         PROFILE
+    ================================================== -->
+
+    <section id="profile"
+             class="miq-settings-section active-section">
+
+        <div class="miq-section-title">
+
+            <div class="miq-section-icon">
+                ♙
+            </div>
+
+            <div>
+
+                <h2>
+                    Profile
+                </h2>
+
+                <p>
+                    Manage your personal information and account details.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="miq-settings-card">
+
+
+            <!-- PROFILE HEADER -->
+
+            <div class="miq-profile-header">
+
+                <div class="miq-large-avatar">
+                    {{ session.get('name', 'U')[0]|upper }}
+                </div>
+
+                <div>
+
+                    <h3>
+                        {{ session.get('name', 'User') }}
+                    </h3>
+
+                    <p>
+                        Your MatchIQ career profile
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="miq-form-grid">
+
+                <div class="miq-form-group">
+
+                    <label>
+                        Full name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="fullName"
+                        value="{{ session.get('name', 'User') }}">
+
+                </div>
+
+
+                <div class="miq-form-group">
+
+                    <label>
+                        Email address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        value="{{ session.get('email', '') }}">
+
+                </div>
+
+            </div>
+
+
+            <div class="miq-form-group">
+
+                <label>
+                    Account type
+                </label>
+
+                <div class="miq-readonly-field">
+
+                    <span>
+                        Employee
+                    </span>
+
+                    <small>
+                        Verified account
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         SECURITY
+    ================================================== -->
+
+    <section id="security"
+             class="miq-settings-section">
+
+        <div class="miq-section-title">
+
+            <div class="miq-section-icon">
+                ◇
+            </div>
+
+            <div>
+
+                <h2>
+                    Security
+                </h2>
+
+                <p>
+                    Protect your MatchIQ account and login activity.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="miq-settings-card">
+
+            <div class="miq-security-row">
+
+                <div>
+
+                    <strong>
+                        Password
+                    </strong>
+
+                    <p>
+                        Keep your account protected with a strong password.
+                    </p>
+
+                </div>
+
+                <button class="miq-outline-button">
+                    Change password
+                </button>
+
+            </div>
+
+
+            <div class="miq-divider"></div>
+
+
+            <div class="miq-security-row">
+
+                <div>
+
+                    <strong>
+                        Two-factor authentication
+                    </strong>
+
+                    <p>
+                        Add an additional layer of security to your account.
+                    </p>
+
+                </div>
+
+                <button class="miq-outline-button">
+                    Enable
+                </button>
+
+            </div>
+
+
+            <div class="miq-divider"></div>
+
+
+            <div class="miq-security-row">
+
+                <div>
+
+                    <strong>
+                        Login sessions
+                    </strong>
+
+                    <p>
+                        You are currently signed in to this device.
+                    </p>
+
+                </div>
+
+                <span class="miq-active-badge">
+                    Active
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         NOTIFICATIONS
+    ================================================== -->
+
+    <section id="notifications"
+             class="miq-settings-section">
+
+        <div class="miq-section-title">
+
+            <div class="miq-section-icon">
+                ♢
+            </div>
+
+            <div>
+
+                <h2>
+                    Notifications
+                </h2>
+
+                <p>
+                    Choose what MatchIQ should notify you about.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="miq-settings-card">
+
+            <div class="miq-setting-row">
+
+                <div>
+
+                    <strong>
+                        Job matches
+                    </strong>
+
+                    <p>
+                        Get notified when MatchIQ finds relevant jobs.
+                    </p>
+
+                </div>
+
+                <label class="miq-switch">
+
+                    <input
+                        type="checkbox"
+                        id="jobMatches"
+                        checked>
+
+                    <span></span>
+
+                </label>
+
+            </div>
+
+
+            <div class="miq-divider"></div>
+
+
+            <div class="miq-setting-row">
+
+                <div>
+
+                    <strong>
+                        AI recommendations
+                    </strong>
+
+                    <p>
+                        Receive career and skill recommendations.
+                    </p>
+
+                </div>
+
+                <label class="miq-switch">
+
+                    <input
+                        type="checkbox"
+                        id="aiRecommendations"
+                        checked>
+
+                    <span></span>
+
+                </label>
+
+            </div>
+
+
+            <div class="miq-divider"></div>
+
+
+            <div class="miq-setting-row">
+
+                <div>
+
+                    <strong>
+                        Application updates
+                    </strong>
+
+                    <p>
+                        Receive updates about your job applications.
+                    </p>
+
+                </div>
+
+                <label class="miq-switch">
+
+                    <input
+                        type="checkbox"
+                        id="applicationUpdates"
+                        checked>
+
+                    <span></span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         APPEARANCE
+    ================================================== -->
+
+    <section id="appearance"
+             class="miq-settings-section">
+
+        <div class="miq-section-title">
+
+            <div class="miq-section-icon">
+                ◐
+            </div>
+
+            <div>
+
+                <h2>
+                    Appearance
+                </h2>
+
+                <p>
+                    Customize how MatchIQ looks on your device.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="miq-settings-card">
+
+            <div class="miq-setting-row">
+
+                <div>
+
+                    <strong>
+                        Theme
+                    </strong>
+
+                    <p>
+                        Choose your preferred interface theme.
+                    </p>
+
+                </div>
+
+
+                <div class="miq-theme-options">
+
+                    <button
+                        class="miq-theme-option active"
+                        type="button">
+                        Light
+                    </button>
+
+                    <button
+                        class="miq-theme-option"
+                        type="button">
+                        Dark
+                    </button>
+
+                    <button
+                        class="miq-theme-option"
+                        type="button">
+                        System
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="miq-divider"></div>
+
+
+            <div class="miq-setting-row">
+
+                <div>
+
+                    <strong>
+                        Compact interface
+                    </strong>
+
+                    <p>
+                        Reduce spacing across MatchIQ.
+                    </p>
+
+                </div>
+
+                <label class="miq-switch">
+
+                    <input
+                        type="checkbox">
+
+                    <span></span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PRIVACY
+    ================================================== -->
+
+    <section id="privacy"
+             class="miq-settings-section">
+
+        <div class="miq-section-title">
+
+            <div class="miq-section-icon">
+                ◎
+            </div>
+
+            <div>
+
+                <h2>
+                    Privacy
+                </h2>
+
+                <p>
+                    Control how your information is used by MatchIQ.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="miq-settings-card">
+
+            <div class="miq-privacy-box">
+
+                <div class="miq-privacy-icon">
+                    🔒
+                </div>
+
+                <div>
+
+                    <strong>
+                        Your resume is private
+                    </strong>
+
+                    <p>
+                        Your resume is used to calculate job matches
+                        and provide career recommendations.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="miq-setting-row">
+
+                <div>
+
+                    <strong>
+                        AI resume analysis
+                    </strong>
+
+                    <p>
+                        Allow MatchIQ AI to analyze your uploaded resume.
+                    </p>
+
+                </div>
+
+                <label class="miq-switch">
+
+                    <input
+                        type="checkbox"
+                        checked>
+
+                    <span></span>
+
+                </label>
+
+            </div>
+
+
+            <div class="miq-divider"></div>
+
+
+            <div class="miq-setting-row">
+
+                <div>
+
+                    <strong>
+                        Profile visibility
+                    </strong>
+
+                    <p>
+                        Allow your profile to be considered for suitable jobs.
+                    </p>
+
+                </div>
+
+                <label class="miq-switch">
+
+                    <input
+                        type="checkbox"
+                        checked>
+
+                    <span></span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- DANGER ZONE -->
+
+        <div class="miq-danger-zone">
+
+            <div>
+
+                <strong>
+                    Delete account
+                </strong>
+
+                <p>
+                    Permanently delete your MatchIQ account and data.
+                </p>
+
+            </div>
+
+            <button>
+                Delete account
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         SAVE BAR
+    ================================================== -->
+
+    <div class="miq-save-bar">
+
+        <div>
+
+            <strong id="saveStatus">
+                All changes are saved
+            </strong>
+
+            <span>
+                Your preferences are stored on this device.
+            </span>
+
+        </div>
+
+
+        <button
+            type="button"
+            onclick="saveSettings()"
+            class="miq-save-button">
+
+            Save changes
+
+        </button>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer class="miq-settings-footer">
+
+        <span>
+            © 2026 MatchIQ
+        </span>
+
+        <span>
+            AI-powered career intelligence
+        </span>
+
+    </footer>
+
+</main>
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        setupNavigation();
+
+        setupThemeButtons();
+
+        loadSettings();
+
+    }
+);
+
+
+/* =====================================================
+   SETTINGS NAVIGATION
+===================================================== */
+
+function setupNavigation() {
+
+    const links =
+        document.querySelectorAll(
+            ".miq-settings-navigation a"
+        );
+
+    const sections =
+        document.querySelectorAll(
+            ".miq-settings-section"
+        );
+
+
+    links.forEach(function (link) {
+
+        link.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const target =
+                    this.getAttribute(
+                        "data-section"
+                    );
+
+
+                links.forEach(function (item) {
+
+                    item.classList.remove(
+                        "active"
+                    );
+
+                });
+
+
+                this.classList.add(
+                    "active"
+                );
+
+
+                sections.forEach(
+                    function (section) {
+
+                        section.classList.remove(
+                            "active-section"
+                        );
+
+                    }
+                );
+
+
+                const selected =
+                    document.getElementById(
+                        target
+                    );
+
+
+                if (selected) {
+
+                    selected.classList.add(
+                        "active-section"
+                    );
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+
+                }
+
+            }
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   THEME BUTTONS
+===================================================== */
+
+function setupThemeButtons() {
+
+    const buttons =
+        document.querySelectorAll(
+            ".miq-theme-option"
+        );
+
+
+    buttons.forEach(function (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                buttons.forEach(
+                    function (item) {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                this.classList.add(
+                    "active"
+                );
+
+            }
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   SAVE
+===================================================== */
+
+function saveSettings() {
+
+    const settings = {
+
+        jobMatches:
+            document.getElementById(
+                "jobMatches"
+            ).checked,
+
+        aiRecommendations:
+            document.getElementById(
+                "aiRecommendations"
+            ).checked,
+
+        applicationUpdates:
+            document.getElementById(
+                "applicationUpdates"
+            ).checked
+
+    };
+
+
+    localStorage.setItem(
+        "matchiqSettings",
+        JSON.stringify(settings)
+    );
+
+
+    const status =
+        document.getElementById(
+            "saveStatus"
+        );
+
+
+    status.textContent =
+        "✓ Changes saved successfully";
+
+
+    setTimeout(
+        function () {
+
+            status.textContent =
+                "All changes are saved";
+
+        },
+        2500
+    );
+
+}
+
+
+/* =====================================================
+   LOAD
+===================================================== */
+
+function loadSettings() {
+
+    const saved =
+        localStorage.getItem(
+            "matchiqSettings"
+        );
+
+
+    if (!saved) {
+        return;
+    }
+
+
+    try {
+
+        const settings =
+            JSON.parse(saved);
+
+
+        if (
+            typeof settings.jobMatches !==
+            "undefined"
+        ) {
+
+            document.getElementById(
+                "jobMatches"
+            ).checked =
+                settings.jobMatches;
+
+        }
+
+
+        if (
+            typeof settings.aiRecommendations !==
+            "undefined"
+        ) {
+
+            document.getElementById(
+                "aiRecommendations"
+            ).checked =
+                settings.aiRecommendations;
+
+        }
+
+
+        if (
+            typeof settings.applicationUpdates !==
+            "undefined"
+        ) {
+
+            document.getElementById(
+                "applicationUpdates"
+            ).checked =
+                settings.applicationUpdates;
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.log(
+            "Settings could not be loaded."
+        );
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MatchIQ | AI Career Intelligence</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<!-- =====================================================
+     BACKGROUND ANIMATION
+===================================================== -->
+
+<div class="background">
+
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+    <div class="orb orb-three"></div>
+
+    <div class="grid"></div>
+
+</div>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+    <div class="logo">
+        <div class="logo-icon">
+            ✦
+        </div>
+
+        <span>Match<span class="logo-highlight">IQ</span></span>
+    </div>
+
+
+    <nav>
+
+        <a href="{{ url_for('home') }}" class="active">
+            Home
+        </a>
+
+        <a href="{{ url_for('jobs') }}">
+            Jobs
+        </a>
+
+        <a href="{{ url_for('matcher_page') }}">
+            AI Matcher
+        </a>
+
+        <a href="{{ url_for('employer_dashboard') }}">
+            Employers
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+        <a href="{{ url_for('login') }}"
+           class="login-btn">
+            Login
+        </a>
+
+        <a href="{{ url_for('signup') }}"
+           class="signup-btn">
+            Get Started
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<main>
+
+<section class="hero">
+
+    <div class="hero-left">
+
+        <div class="ai-badge">
+
+            <span class="pulse"></span>
+
+            AI-Powered Career Intelligence
+
+        </div>
+
+
+        <h1>
+
+            Your resume.
+
+            <br>
+
+            <span class="gradient-text">
+                Your future.
+            </span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            MatchIQ uses intelligent resume analysis and
+            AI-powered job matching to connect your skills
+            with the right opportunities.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a href="{{ url_for('matcher_page') }}"
+               class="primary-btn">
+
+                <span>✦</span>
+
+                Analyze My Resume
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a href="{{ url_for('jobs') }}"
+               class="secondary-btn">
+
+                Explore Jobs
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <!-- TRUST -->
+
+        <div class="trust">
+
+            <div class="avatars">
+
+                <span>👩🏻</span>
+                <span>👨🏻</span>
+                <span>👩🏽</span>
+                <span>👨🏾</span>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    10,000+
+                </strong>
+
+                <small>
+                    professionals discovering better careers
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         AI VISUAL
+    ================================================= -->
+
+    <div class="hero-right">
+
+        <div class="ai-card">
+
+            <div class="card-glow"></div>
+
+
+            <div class="card-header">
+
+                <div>
+
+                    <span class="mini-label">
+                        AI ANALYSIS
+                    </span>
+
+                    <h3>
+                        Resume Intelligence
+                    </h3>
+
+                </div>
+
+                <div class="ai-icon">
+                    ✦
+                </div>
+
+            </div>
+
+
+            <!-- SCORE -->
+
+            <div class="score-area">
+
+                <div class="score-ring">
+
+                    <div class="score-inner">
+
+                        <strong>
+                            94%
+                        </strong>
+
+                        <span>
+                            Match
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="score-info">
+
+                    <div class="success">
+                        ● Excellent Match
+                    </div>
+
+                    <p>
+                        Your profile strongly matches
+                        the selected opportunity.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- SKILLS -->
+
+            <div class="skill-section">
+
+                <div class="section-title">
+
+                    <span>
+                        Skill Compatibility
+                    </span>
+
+                    <span>
+                        94%
+                    </span>
+
+                </div>
+
+
+                <div class="progress">
+
+                    <div class="progress-fill"></div>
+
+                </div>
+
+
+                <div class="skills">
+
+                    <span>Python</span>
+                    <span>AI</span>
+                    <span>Flask</span>
+                    <span>SQL</span>
+
+                </div>
+
+            </div>
+
+
+            <!-- AI RECOMMENDATION -->
+
+            <div class="recommendation">
+
+                <div class="recommendation-icon">
+                    ✨
+                </div>
+
+                <div>
+
+                    <strong>
+                        AI Recommendation
+                    </strong>
+
+                    <p>
+                        Add REST API and JavaScript
+                        experience to improve your match.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FLOATING AI ELEMENT -->
+
+        <div class="floating-card floating-one">
+
+            <span class="floating-icon">
+                ✓
+            </span>
+
+            <div>
+
+                <strong>
+                    Skills Found
+                </strong>
+
+                <small>
+                    18 skills detected
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="floating-card floating-two">
+
+            <span class="floating-icon purple">
+                ⚡
+            </span>
+
+            <div>
+
+                <strong>
+                    AI Matching
+                </strong>
+
+                <small>
+                    Finding opportunities...
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<section class="stats">
+
+    <div class="stat">
+
+        <strong>
+            10K+
+        </strong>
+
+        <span>
+            Resumes Analyzed
+        </span>
+
+    </div>
+
+
+    <div class="stat">
+
+        <strong>
+            95%
+        </strong>
+
+        <span>
+            Matching Accuracy
+        </span>
+
+    </div>
+
+
+    <div class="stat">
+
+        <strong>
+            5K+
+        </strong>
+
+        <span>
+            Job Opportunities
+        </span>
+
+    </div>
+
+
+    <div class="stat">
+
+        <strong>
+            24/7
+        </strong>
+
+        <span>
+            AI Career Support
+        </span>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section class="features">
+
+    <div class="section-heading">
+
+        <div class="ai-badge">
+            ✦ SMART TECHNOLOGY
+        </div>
+
+        <h2>
+            Everything you need to
+            <span class="gradient-text">
+                move forward.
+            </span>
+        </h2>
+
+        <p>
+            One intelligent platform for understanding
+            your resume, finding jobs and growing your career.
+        </p>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+
+        <!-- FEATURE 1 -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon blue">
+                ✦
+            </div>
+
+            <h3>
+                AI Resume Analysis
+            </h3>
+
+            <p>
+                Automatically identify your skills,
+                technologies, experience and strengths
+                using intelligent resume analysis.
+            </p>
+
+            <a href="{{ url_for('matcher_page') }}">
+                Analyze Resume →
+            </a>
+
+        </div>
+
+
+        <!-- FEATURE 2 -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon purple">
+                ◎
+            </div>
+
+            <h3>
+                Smart Job Matching
+            </h3>
+
+            <p>
+                Compare your resume against job descriptions
+                and discover opportunities that fit your profile.
+            </p>
+
+            <a href="{{ url_for('jobs') }}">
+                Find Jobs →
+            </a>
+
+        </div>
+
+
+        <!-- FEATURE 3 -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon pink">
+                ↗
+            </div>
+
+            <h3>
+                Career Insights
+            </h3>
+
+            <p>
+                Understand missing skills and receive
+                practical recommendations to improve
+                your career opportunities.
+            </p>
+
+            <a href="{{ url_for('profile') }}">
+                View Profile →
+            </a>
+
+        </div>
+
+
+        <!-- FEATURE 4 -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon green">
+                ◈
+            </div>
+
+            <h3>
+                Employer Intelligence
+            </h3>
+
+            <p>
+                Employers can discover relevant candidates,
+                evaluate profiles and manage hiring more intelligently.
+            </p>
+
+            <a href="{{ url_for('employer_dashboard') }}">
+                Employer Dashboard →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HOW IT WORKS
+===================================================== -->
+
+<section class="how">
+
+    <div class="section-heading">
+
+        <div class="ai-badge">
+            ✦ SIMPLE PROCESS
+        </div>
+
+        <h2>
+            From resume to
+            <span class="gradient-text">
+                opportunity.
+            </span>
+        </h2>
+
+    </div>
+
+
+    <div class="steps">
+
+
+        <div class="step">
+
+            <div class="step-number">
+                01
+            </div>
+
+            <h3>
+                Upload
+            </h3>
+
+            <p>
+                Upload your PDF or DOCX resume.
+            </p>
+
+        </div>
+
+
+        <div class="step-line"></div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                02
+            </div>
+
+            <h3>
+                Analyze
+            </h3>
+
+            <p>
+                Our AI identifies your skills
+                and experience.
+            </p>
+
+        </div>
+
+
+        <div class="step-line"></div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                03
+            </div>
+
+            <h3>
+                Match
+            </h3>
+
+            <p>
+                Compare your profile with
+                relevant job descriptions.
+            </p>
+
+        </div>
+
+
+        <div class="step-line"></div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                04
+            </div>
+
+            <h3>
+                Grow
+            </h3>
+
+            <p>
+                Improve missing skills and
+                discover better opportunities.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="cta">
+
+    <div class="cta-glow"></div>
+
+    <div class="cta-content">
+
+        <div class="ai-badge">
+            ✦ YOUR NEXT OPPORTUNITY STARTS HERE
+        </div>
+
+        <h2>
+            Ready to find your
+            <span class="gradient-text">
+                perfect match?
+            </span>
+        </h2>
+
+        <p>
+            Let AI understand your potential and
+            help you take the next step in your career.
+        </p>
+
+        <a href="{{ url_for('matcher_page') }}"
+           class="primary-btn">
+
+            ✦ Start AI Analysis
+
+            <span>
+                →
+            </span>
+
+        </a>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="footer-logo">
+
+        <div class="logo-icon">
+            ✦
+        </div>
+
+        <strong>
+            Match<span>IQ</span>
+        </strong>
+
+    </div>
+
+
+    <p>
+        Intelligent matching for modern careers.
+    </p>
+
+
+    <div class="footer-links">
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('jobs') }}">
+            Jobs
+        </a>
+
+        <a href="{{ url_for('matcher_page') }}">
+            AI Matcher
+        </a>
+
+        <a href="{{ url_for('login') }}">
+            Login
+        </a>
+
+    </div>
+
+
+    <p class="copyright">
+        © 2026 MatchIQ. AI-powered career intelligence.
+    </p>
+
+</footer>
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

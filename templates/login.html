@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | MatchIQ</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div class="auth-page">
+
+    <!-- Animated background -->
+    <div class="auth-orb auth-orb-one"></div>
+    <div class="auth-orb auth-orb-two"></div>
+    <div class="auth-grid"></div>
+
+
+    <!-- Navigation -->
+
+    <header class="auth-navbar">
+
+        <a href="{{ url_for('home') }}" class="logo">
+
+            <div class="logo-icon">
+                ✦
+            </div>
+
+            <span>
+                Match<span class="logo-highlight">IQ</span>
+            </span>
+
+        </a>
+
+        <a href="{{ url_for('home') }}"
+           class="back-home">
+            ← Back to Home
+        </a>
+
+    </header>
+
+
+    <!-- Login area -->
+
+    <main class="auth-container">
+
+        <div class="auth-card">
+
+            <!-- Left side -->
+
+            <div class="auth-info">
+
+                <div class="auth-ai-icon">
+                    ✦
+                </div>
+
+                <div class="ai-badge">
+                    AI-POWERED CAREER INTELLIGENCE
+                </div>
+
+                <h1>
+                    Welcome
+                    <span class="gradient-text">
+                        back.
+                    </span>
+                </h1>
+
+                <p>
+                    Sign in to continue your journey
+                    with MatchIQ and discover smarter
+                    career opportunities.
+                </p>
+
+
+                <div class="auth-features">
+
+                    <div class="auth-feature">
+
+                        <span>✓</span>
+
+                        <div>
+                            <strong>
+                                AI Resume Analysis
+                            </strong>
+
+                            <small>
+                                Understand your skills instantly.
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="auth-feature">
+
+                        <span>✓</span>
+
+                        <div>
+                            <strong>
+                                Smart Job Matching
+                            </strong>
+
+                            <small>
+                                Find opportunities that fit you.
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="auth-feature">
+
+                        <span>✓</span>
+
+                        <div>
+                            <strong>
+                                Career Insights
+                            </strong>
+
+                            <small>
+                                Know exactly what to improve.
+                            </small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Login form -->
+
+            <div class="auth-form-area">
+
+                <div class="form-heading">
+
+                    <h2>
+                        Sign in
+                    </h2>
+
+                    <p>
+                        Enter your details to access MatchIQ.
+                    </p>
+
+                </div>
+
+
+                {% if error %}
+
+                <div class="auth-error">
+                    {{ error }}
+                </div>
+
+                {% endif %}
+
+
+                <form method="POST"
+                      action="{{ url_for('login') }}"
+                      class="auth-form">
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                @
+                            </span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <div class="password-label">
+
+                            <label for="password">
+                                Password
+                            </label>
+
+                            <a href="#">
+                                Forgot password?
+                            </a>
+
+                        </div>
+
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                •
+                            </span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="passwordToggle"
+                                aria-label="Show password">
+                                Show
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                            name="remember"
+                        >
+
+                        <span>
+                            Remember me
+                        </span>
+
+                    </label>
+
+
+                    <button
+                        type="submit"
+                        class="auth-submit">
+
+                        <span>
+                            Sign In
+                        </span>
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <div class="auth-divider">
+                    <span>OR</span>
+                </div>
+
+
+                <div class="auth-signup">
+
+                    <span>
+                        Don't have an account?
+                    </span>
+
+                    <a href="{{ url_for('signup') }}">
+                        Create account
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Security text -->
+
+        <div class="auth-security">
+
+            <span>🔒</span>
+
+            Your information is protected with secure
+            authentication.
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const passwordInput =
+        document.getElementById("password");
+
+    const passwordToggle =
+        document.getElementById("passwordToggle");
+
+
+    if (passwordInput && passwordToggle) {
+
+        passwordToggle.addEventListener(
+            "click",
+            function () {
+
+                if (passwordInput.type === "password") {
+
+                    passwordInput.type = "text";
+
+                    passwordToggle.textContent =
+                        "Hide";
+
+                } else {
+
+                    passwordInput.type = "password";
+
+                    passwordToggle.textContent =
+                        "Show";
+                }
+
+            }
+        );
+    }
+
+
+    const card =
+        document.querySelector(".auth-card");
+
+
+    if (card) {
+
+        card.style.opacity = "0";
+        card.style.transform =
+            "translateY(25px)";
+
+
+        requestAnimationFrame(() => {
+
+            card.style.transition =
+                "opacity .7s ease, transform .7s ease";
+
+            card.style.opacity = "1";
+
+            card.style.transform =
+                "translateY(0)";
+
+        });
+    }
+
+});
+
+</script>
+
+</body>
+</html>
